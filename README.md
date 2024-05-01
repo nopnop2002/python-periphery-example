@@ -86,6 +86,26 @@ options:
                         print debug
 
 $ sudo -E python3 bmp280-spi.py -d /dev/spidev0.0
+device=/dev/spidev0.0
+mode=0
+speed=1000000
+print=0
+[0, 88, 0]
+chip_id = 0x58 BMP280
+Check Register
+Read calibration data
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.39 C
+Pressure    : 1004.89 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.38 C
+Pressure    : 1004.92 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.38 C
+Pressure    : 1004.88 hPa
 ```
 
 # Software SPI IO example   
@@ -178,6 +198,25 @@ options:
                         print debug
 
 $ sudo -E python3 bmp280-i2c.py -d /dev/i2c-3
+device=/dev/i2c-3
+addr=0x76
+chip_id = 0x58 BMP280
+-----------------------
+Chip ID     : 0x58
+Temperature : 22.29 C
+Pressure    : 1004.73 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 22.29 C
+Pressure    : 1004.67 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 22.29 C
+Pressure    : 1004.71 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 22.28 C
+Pressure    : 1004.69 hPa
 ```
 
 
