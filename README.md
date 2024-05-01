@@ -31,6 +31,7 @@ $ sudo -E python3 leds.py -g 1
 
 # leds example   
 Blinking on-board led.   
+The number of onboard LEDs depends on the device.   
 You can find the onboard LED with the command below.   
 ```
 $ ls /sys/class/leds/
