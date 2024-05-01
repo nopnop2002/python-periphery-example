@@ -51,8 +51,8 @@ options:
 $ sudo -E python3 leds.py -d led0
 ```
 
-# spi IO example   
-Read temperature and humidity from bmp280 with spi interface.   
+# Hardware SPI IO example   
+Read temperature and humidity from bmp280 with hardware SPI interface.   
 
 ### Hardware requirements
 BMP280 with spi interface.
@@ -87,8 +87,8 @@ options:
 $ sudo -E python3 bmp280-spi.py -d /dev/spidev0.0
 ```
 
-# bitbang spi IO example   
-Read temperature and humidity from bmp280 with bitbang spi interface.   
+# Software SPI IO example   
+Read temperature and humidity from bmp280 with software SPI interface.   
 
 ### Hardware requirements
 BMP280 with spi interface.
