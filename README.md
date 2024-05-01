@@ -145,7 +145,30 @@ options:
   --miso MISO    spi miso gpio
   --print PRINT  print debug
 
-$ sudo -E python3 bmp280-spi.py --sclk 55 -mosi 54 --cs 68 --miso 69
+$ sudo -E python3 bmp280-softspi.py --sclk 55 --mosi 54 --cs 68 --miso 69
+sclk=55
+mosi=54
+cs=68
+miso=69
+print=0
+chip_id = 0x58 BMP280
+Read calibration data
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.16 C
+Pressure    : 1005.37 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.16 C
+Pressure    : 1005.33 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.16 C
+Pressure    : 1005.3 hPa
+-----------------------
+Chip ID     : 0x58
+Temperature : 23.16 C
+Pressure    : 1005.27 hPa
 ```
 
 
