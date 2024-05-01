@@ -37,6 +37,6 @@ if __name__=="__main__":
 	parser.add_argument('-d', '--device', default='/dev/i2c-0')
 	args = parser.parse_args()
 
-	print("args.device={}".format(args.device))
+	print("device={}".format(args.device))
 	i2c = I2C(args.device)
 	main()

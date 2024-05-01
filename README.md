@@ -185,7 +185,7 @@ options:
   -d DEVICE, --device DEVICE
 
 $ sudo -E python3 i2cscan.py -d /dev/i2c-3
-args.device=/dev/i2c-3
+device=/dev/i2c-3
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:          -- -- -- -- -- -- -- -- -- -- -- -- --
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
