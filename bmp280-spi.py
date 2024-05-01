@@ -19,7 +19,7 @@ def handler(signal, frame):
 def readID():
 	out = [0xD0, 0x00, 0x00]
 	resp = spi.transfer(out)
-	print(resp)
+	if(DEBUG == 1):print("resp = {}".format(resp))
 	return resp[1], resp[2]
 
 def calibration_T(adc_T):

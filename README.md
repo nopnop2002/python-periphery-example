@@ -90,7 +90,6 @@ device=/dev/spidev0.0
 mode=0
 speed=1000000
 print=0
-[0, 88, 0]
 chip_id = 0x58 BMP280
 Check Register
 Read calibration data
