@@ -87,6 +87,46 @@ options:
 $ sudo -E python3 bmp280-spi.py -d /dev/spidev0.0
 ```
 
+# bitbang spi IO example   
+Read temperature and humidity from bmp280 with bitbang spi interface.   
+
+### Hardware requirements
+BMP280 with spi interface.
+
+### Wirering
+
+|BMP280||GPIO||
+|:-:|:-:|:-:|:-:|
+|Vcc|--|3V3||
+|Gnd|--|Gnd||
+|SCL|--|SPI SCK|*1|
+|SDA|--|SPI MOSI|*1|
+|CSB|--|SPI SC|*1|
+|SDO|--|SPI MISO|*1|
+
+(*1)   
+You can use any gpio.   
+
+
+```
+$ sudo -E python3 bmp280-softspi.py --help
+usage: bmp280-softspi.py [-h] [--sclk SCLK] [--mosi MOSI] [--cs CS] [--miso MISO]
+                         [--print PRINT]
+
+options:
+  -h, --help     show this help message and exit
+  --sclk SCLK    spi sclk gpio
+  --mosi MOSI    spi mosi gpio
+  --cs CS        spi cs gpio
+  --miso MISO    spi miso gpio
+  --print PRINT  print debug
+
+$ sudo -E python3 bmp280-spi.py --sclk 55 -mosi 54 --cs 68 --miso 69
+```
+
+
+
+
 # i2c device scan example   
 Scan for i2c devices.   
 ```
