@@ -3,6 +3,10 @@ python-periphery example code.
 python-periphery is a python library that can handle GPIO, onboard LED, SPI, and i2c.   
 It is a very versatile library and highly portable.   
 The downside is that there is less example python code.   
+I used this to check the operation of the LuckFox Pico board, which uses the Rockchip RV1103 chip.   
+![luckfox-pico-1](https://github.com/nopnop2002/python-periphery-example/assets/6020549/c0ba3c08-8cd4-4488-ae6e-5d16fbf36b3d)
+![luckfox-pico-2](https://github.com/nopnop2002/python-periphery-example/assets/6020549/536b585a-6695-4139-a97d-2c5aded58630)
+
 
 # Installation
 
