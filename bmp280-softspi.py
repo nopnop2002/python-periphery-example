@@ -6,21 +6,18 @@ import signal
 import argparse
 from ctypes import c_short
 from ctypes import c_int
-from periphery import SPI
+from periphery import GPIO
 
-spi = None
+gpio_mosi = None
+gpio_miso = None
+gpio_sclk = None
+gpio_cs = None
 DEBUG = 0
 
 def handler(signal, frame):
-    global running
-    print('handler')
-    running = False
-
-def readID():
-	out = [0xD0, 0x00, 0x00]
-	resp = spi.transfer(out)
-	print(resp)
-	return resp[1], resp[2]
+	global running
+	print('handler')
+	running = False
 
 def calibration_T(adc_T):
 	global t_fine
@@ -62,21 +59,70 @@ def calibration_P(adc_P):
 	if(DEBUG == 1):print("P = {} {}".format(type(P), P))
 	return P
 
+def writeReg(reg_address, data):
+	gpio_cs.write(False)
+	SoftSpiWrite(reg_address & 0x7F)	# write, bit 7 low
+	SoftSpiWrite(data)
+	gpio_cs.write(True)
+
+def read16bit(reg):
+	gpio_cs.write(False)
+	SoftSpiWrite(reg | 0x80)	# read, bit 7 high
+	d1 = SoftSpiRead()
+	d2 = SoftSpiRead()
+	data = (d2 << 8) | d1
+	gpio_cs.write(True)
+	return data
+
+def read8bit(reg):
+	gpio_cs.write(False)
+	SoftSpiWrite(reg | 0x80)	# read, bit 7 high
+	data = SoftSpiRead();
+	gpio_cs.write(True)
+	return data;
+
+def SoftSpiWrite(data):
+	mask = 0x80
+	for x in range(8):
+		gpio_sclk.write(False)
+		bit = data & mask
+		if (bit != 0):
+			gpio_mosi.write(True)
+		if (bit == 0):
+			gpio_mosi.write(False)
+		gpio_sclk.write(True)
+		mask = mask >> 1
+
+def SoftSpiRead():
+	r_data = 0;
+	mask = 0x80
+	gpio_mosi.write(False)
+	for x in range(8):
+		r_data = r_data << 1
+		gpio_sclk.write(False)
+		gpio_sclk.write(True)
+		bit = gpio_miso.read()
+		if (bit == True):
+			r_data = r_data + 1
+	return r_data;
+
 def readData():
 	while(1):
-		out = []
-		for x in range(0xF7, 0xFD):
-			out.append(x)
-		out.append(0)
-		resp = spi.transfer(out)
-		if(DEBUG == 1): print(resp)
+		resp = []
+		register = 0xF7
+		for x in range(6):
+			 value = read8bit(register)
+			 if(DEBUG == 1):print(value)
+			 resp.append(value)
+			 register=register+1
+		if(DEBUG == 1):print
 		# Check valid data
 		if (resp[2] != 0 or resp[3] != 0):break
 		time.sleep(1)
 
-	pres_raw = (resp[1] << 12) | (resp[2] << 4) | (resp[3] >> 4)	#0xF7, msb+lsb+xlsb=19bit
+	pres_raw = (resp[0] << 12) | (resp[1] << 4) | (resp[2] >> 4)	#0xF7, msb+lsb+xlsb=19bit
 	if(DEBUG == 1):print("pres_raw = %d " % pres_raw)
-	temp_raw = (resp[4] << 12) | (resp[5] << 4) | (resp[6] >> 4)	#0xFA, msb+lsb+xlsb=19bit
+	temp_raw = (resp[3] << 12) | (resp[4] << 4) | (resp[5] >> 4)	#0xFA, msb+lsb+xlsb=19bit
 	if(DEBUG == 1):print("temp_raw = %d " % temp_raw)
 
 	temp_cal = calibration_T(temp_raw)
@@ -92,22 +138,26 @@ if __name__=="__main__":
 	running = True
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-d', '--device', help="device file name", default='/dev/spidev0.0')
-	parser.add_argument('-m', '--mode', type=int, help="spi mode", default=0)
-	parser.add_argument('-s', '--speed', type=int, help="spi clock speed", default=1000000)
-	parser.add_argument('-p', '--print', type=int, help="print debug", default=0)
+	parser.add_argument('--sclk', type=int, help="spi sclk gpio", default=55)
+	parser.add_argument('--mosi', type=int, help="spi mosi gpio", default=54)
+	parser.add_argument('--cs', type=int, help="spi cs gpio", default=68)
+	parser.add_argument('--miso', type=int, help="spi miso gpio", default=69)
+	parser.add_argument('--print', type=int, help="print debug", default=0)
 	args = parser.parse_args()
 
-	# Open spi device
-	print("device={}".format(args.device))
-	print("mode={}".format(args.mode))
-	print("speed={}".format(args.speed))
+	# Set gpio direction
+	print("sclk={}".format(args.sclk))
+	print("mosi={}".format(args.mosi))
+	print("cs={}".format(args.cs))
+	print("miso={}".format(args.miso))
 	print("print={}".format(args.print))
-	#spi = SPI(args.device, 0, 1000000)
-	spi = SPI(args.device, args.mode, args.speed)
+	gpio_mosi = GPIO(args.mosi, "out")
+	gpio_miso = GPIO(args.miso, "in")
+	gpio_sclk = GPIO(args.sclk, "out")
+	gpio_cs = GPIO(args.cs, "out")
 	DEBUG = args.print
 
-	chip_id, chip_version = readID()
+	chip_id = read8bit(0xD0)
 	print("chip_id = 0x{:x} ".format(chip_id), end="")
 	if (chip_id == 0x58):
 		print("BMP280")
@@ -117,12 +167,12 @@ if __name__=="__main__":
 		print("Unknown")
 		sys.exit()
 
-	t_sb = 5    #stanby 1000ms
+	t_sb = 5	#stanby 1000ms
 	filter = 0	#filter O = off
 	spi3or4 = 0 #SPI 3wire or 4wire, 0=4wire, 1=3wire
 	osrs_t = 4	#OverSampling Temperature x8
 	osrs_p = 4	#OverSampling Pressure x8
-	Mode = 3    #Normal mode
+	Mode = 3	#Normal mode
 
 	temp_raw = 0
 	pres_raw = 0
@@ -131,51 +181,30 @@ if __name__=="__main__":
 	# Send a command to the control register[0xF4]
 	ctrl_meas_reg = (osrs_t << 5) | (osrs_p << 2) | Mode
 	if(DEBUG == 1):print("ctrl_meas_reg = %x" % ctrl_meas_reg)
-	spi.transfer([0x74,ctrl_meas_reg])
+	writeReg(0xF4,ctrl_meas_reg)
 
 	# Send a command to the config register[0xF5]
-	config_reg = (t_sb << 5) | (filter << 2) | spi3or4
+	config_reg		= (t_sb << 5) | (filter << 2) | spi3or4
 	if(DEBUG == 1):print("config_reg = %x " % config_reg)
-	spi.transfer([0x75,config_reg])
-
-	# Check control[0xF4] & config register[0xF5]
-	print('Check Register')
-	out = [0xF4, 0xF5, 0x00]
-	resp = spi.transfer(out)
-	if(DEBUG == 1):
-		print(resp)
-		print("ctrl_meas_reg = %x" % resp[1])
-		print("config_reg		 = %x" % resp[2])
-	if(resp[1] != ctrl_meas_reg):
-		print("INVALID control register %x" % resp[1])
-	if(resp[2] != config_reg):
-		print("INVALID config  register %x" % resp[2])
+	writeReg(0xF5,config_reg)
 
 	print('Read calibration data')
-	a = []
-	for x in range(0x88, 0xA0):
-		a.append(x)
-	a.append(0)
-	resp = spi.transfer(a)
-	if(DEBUG == 1): print(resp)
-
-	dig_T1 = resp[2] * 256 + resp[1]
-	dig_T2 = c_short(resp[4] * 256 + resp[3]).value
-	dig_T3 = c_short(resp[6] * 256 + resp[5]).value
+	dig_T1 = read16bit(0x88)
+	dig_T2 = c_short(read16bit(0x8A)).value
+	dig_T3 = c_short(read16bit(0x8C)).value
 	if(DEBUG == 1):
 		print("dig_T1 = %d" % dig_T1),
 		print("dig_T2 = %d" % dig_T2),
 		print("dig_T3 = %d" % dig_T3)
-
-	dig_P1 = resp[8] * 256 + resp[7]
-	dig_P2 = c_short(resp[10] * 256 + resp[9]).value
-	dig_P3 = c_short(resp[12] * 256 + resp[11]).value
-	dig_P4 = c_short(resp[14] * 256 + resp[13]).value
-	dig_P5 = c_short(resp[16] * 256 + resp[15]).value
-	dig_P6 = c_short(resp[18] * 256 + resp[17]).value
-	dig_P7 = c_short(resp[20] * 256 + resp[19]).value
-	dig_P8 = c_short(resp[22] * 256 + resp[21]).value
-	dig_P9 = c_short(resp[24] * 256 + resp[23]).value
+	dig_P1 = read16bit(0x8E)
+	dig_P2 = c_short(read16bit(0x90)).value
+	dig_P3 = c_short(read16bit(0x92)).value
+	dig_P4 = c_short(read16bit(0x94)).value
+	dig_P5 = c_short(read16bit(0x96)).value
+	dig_P6 = c_short(read16bit(0x98)).value
+	dig_P7 = c_short(read16bit(0x9A)).value
+	dig_P8 = c_short(read16bit(0x9C)).value
+	dig_P9 = c_short(read16bit(0x9E)).value
 	if(DEBUG == 1):
 		print("dig_P1 = %d" % dig_P1),
 		print("dig_P2 = %d" % dig_P2),
@@ -189,7 +218,7 @@ if __name__=="__main__":
 
 	while running:
 		temp_act, press_act = readData()
-		print("-----------------------")
+		print("-----------------------");
 		print("Chip ID     : 0x{:x}".format(chip_id))
 		print("Temperature : {} C".format(temp_act))
 		print("Pressure    : {} hPa".format(press_act))

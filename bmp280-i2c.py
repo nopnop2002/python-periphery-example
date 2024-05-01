@@ -9,20 +9,9 @@ from ctypes import c_ubyte
 import argparse
 from periphery import I2C
 
-running = True
-
-parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--device', help="device file name", default='/dev/i2c-0')
-parser.add_argument('-a', '--addr', type=lambda x: int(x, 16), help="i2c address", default=0x76)
-parser.add_argument('-p', '--print', type=int, help="print debug", default=0)
-args = parser.parse_args()
-
-# Open i2c device
-print("device={}".format(args.device))
-print("addr=0x{:x}".format(args.addr))
-i2c = I2C(args.device)
-ic2_addr = args.addr
-DEBUG = args.print
+i2c = None
+ic2_addr = 0
+DEBUG = 0
 
 def handler(signal, frame):
     global running
@@ -186,6 +175,20 @@ def readBME280All(addr=ic2_addr):
 
 if __name__=="__main__":
 	signal.signal(signal.SIGINT, handler)
+	running = True
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-d', '--device', help="device file name", default='/dev/i2c-0')
+	parser.add_argument('-a', '--addr', type=lambda x: int(x, 16), help="i2c address", default=0x76)
+	parser.add_argument('-p', '--print', type=int, help="print debug", default=0)
+	args = parser.parse_args()
+
+	# Open i2c device
+	print("device={}".format(args.device))
+	print("addr=0x{:x}".format(args.addr))
+	i2c = I2C(args.device)
+	ic2_addr = args.addr
+	DEBUG = args.print
 
 	chip_id, chip_version = readID()
 	print("chip_id = 0x{:x} ".format(chip_id), end="")
@@ -195,8 +198,7 @@ if __name__=="__main__":
 		print("BME280")
 	else:
 		print("Unknown")
-		while True:
-			pass
+		sys.exit()
 
 	while running:
 		print("-----------------------")
