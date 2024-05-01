@@ -4,6 +4,16 @@ python-periphery is a python library that can handle GPIO, onboard LED, SPI, and
 It is a very versatile library and highly portable.   
 The downside is that there is less example python code.   
 
+# Installation
+
+```Shell
+sudo apt update
+sudo apt install git python3-pip python3-setuptools
+git clone https://github.com/vsergeev/python-periphery.git
+cd python-periphery/
+python3 -m pip install python-periphery
+```
+
 
 # gpio example   
 Toggle gpio.
