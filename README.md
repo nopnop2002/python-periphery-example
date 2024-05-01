@@ -16,7 +16,7 @@ python3 -m pip install python-periphery
 
 
 # gpio example   
-Toggle gpio.
+Blinking gpio.
 ```
 $ sudo -E python3 gpio.py --help
 usage: gpio.py [-h] [-g GPIO]
@@ -30,7 +30,7 @@ $ sudo -E python3 leds.py -g 1
 
 
 # leds example   
-Toggle on-board led.   
+Blinking on-board led.   
 You can find the onboard LED with the command below.   
 ```
 $ ls /sys/class/leds/
