@@ -54,7 +54,10 @@ $ sudo -E python3 leds.py -d led0
 # spi example   
 Read temperature and humidity from bmp280 with spi interface.   
 
-- Wirering
+### Hardware requirements
+BMP280 with spi interface.
+
+### Wirering
 
 |BMP280||GPIO||
 |:-:|:-:|:-:|:-:|
@@ -88,7 +91,10 @@ $ sudo -E python3 bmp280-spi.py -d /dev/spidev0.0
 # i2c example   
 Read temperature and humidity from bmp280 with i2c interface.   
 
-- Wirering
+### Hardware requirements
+BMP280 with i2c interface.
+
+### Wirering
 
 |BMP280||GPIO||
 |:-:|:-:|:-:|:-:|
