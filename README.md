@@ -51,7 +51,7 @@ options:
 $ sudo -E python3 leds.py -d led0
 ```
 
-# spi example   
+# spi IO example   
 Read temperature and humidity from bmp280 with spi interface.   
 
 ### Hardware requirements
@@ -87,8 +87,22 @@ options:
 $ sudo -E python3 bmp280-spi.py -d /dev/spidev0.0
 ```
 
+# i2c device scan example   
+Scan for i2c devices.   
+```
+$ sudo -E python3 i2cscan.py --help
+usage: i2cscan.py [-h] [-d DEVICE]
 
-# i2c example   
+options:
+  -h, --help            show this help message and exit
+  -d DEVICE, --device DEVICE
+
+$ sudo -E python3 i2cscan.py -d /dev/i2c-3
+```
+
+
+
+# i2c IO example   
 Read temperature and humidity from bmp280 with i2c interface.   
 
 ### Hardware requirements
