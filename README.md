@@ -132,7 +132,7 @@ BMP280 breakout module has modules with 4 pin specifications (for i2c only) and 
 
 (*1)   
 You can use any gpio.   
-
+However, gpio that can be controlled with Python is required.   
 
 ```
 $ sudo -E python3 bmp280-softspi.py --help
