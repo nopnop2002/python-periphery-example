@@ -228,23 +228,27 @@ options:
                         device file name
   -a ADDR, --addr ADDR  i2c address
 
-$ sudo -E python3 bmp180-i2c.py -d /dev/i
-2c-3
+
+$ sudo -E python3 bmp180-i2c.py -d /dev/i2c-3
 device=/dev/i2c-3
 addr=0x77
 Chip ID          : 85
 Version          : 2
 -----------------------
 Chip ID     : 0x55
-Temperature : 24.7 C
-Pressure    : 1012.37 hPa
+Temperature : 24.6 C
+Pressure    : 1012.32 hPa
 -----------------------
 Chip ID     : 0x55
-Temperature : 24.7 C
-Pressure    : 1012.38 hPa
+Temperature : 24.6 C
+Pressure    : 1012.31 hPa
 -----------------------
 Chip ID     : 0x55
-Temperature : 24.7 C
+Temperature : 24.6 C
+Pressure    : 1012.31 hPa
+-----------------------
+Chip ID     : 0x55
+Temperature : 24.6 C
 Pressure    : 1012.32 hPa
 -----------------------
 ```
