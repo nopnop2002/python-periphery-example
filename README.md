@@ -56,7 +56,7 @@ options:
 $ sudo -E python3 leds.py -d led0
 ```
 
-# Hardware SPI IO example   
+# BMP280 Hardware SPI IO example   
 Read temperature and humidity from bmp280 with hardware SPI interface.   
 
 ### Hardware requirements
@@ -111,7 +111,7 @@ Temperature : 23.38 C
 Pressure    : 1004.88 hPa
 ```
 
-# Software SPI IO example   
+# BMP280 Software SPI IO example   
 Read temperature and humidity from bmp280 with software SPI interface.   
 
 ### Hardware requirements
@@ -199,7 +199,57 @@ device=/dev/i2c-3
 
 
 
-# i2c IO example   
+# BMP180 i2c IO example   
+Read temperature and humidity from bmp180 with i2c interface.   
+
+### Hardware requirements
+BMP180 with i2c interface.
+
+### Wirering
+
+|BMP180||GPIO||
+|:-:|:-:|:-:|:-:|
+|3V3|--|3V3||
+|ECC|--|N/C||
+|CLR|--|N/C||
+|SCL|--|i2c SCL||
+|SDA|--|i2c SDA||
+|5V|--|N/C||
+|GND|--|Gnd||
+
+
+```
+$ sudo -E python3 bmp180-i2c.py --help
+usage: bmp180-i2c.py [-h] [-d DEVICE] [-a ADDR]
+
+options:
+  -h, --help            show this help message and exit
+  -d DEVICE, --device DEVICE
+                        device file name
+  -a ADDR, --addr ADDR  i2c address
+
+$ sudo -E python3 bmp180-i2c.py -d /dev/i
+2c-3
+device=/dev/i2c-3
+addr=0x77
+Chip ID          : 85
+Version          : 2
+-----------------------
+Chip ID     : 0x55
+Temperature : 24.7 C
+Pressure    : 1012.37 hPa
+-----------------------
+Chip ID     : 0x55
+Temperature : 24.7 C
+Pressure    : 1012.38 hPa
+-----------------------
+Chip ID     : 0x55
+Temperature : 24.7 C
+Pressure    : 1012.32 hPa
+-----------------------
+```
+
+# BMP280 i2c IO example   
 Read temperature and humidity from bmp280 with i2c interface.   
 
 ### Hardware requirements

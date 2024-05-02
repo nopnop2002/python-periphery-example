@@ -4,8 +4,7 @@ import sys
 import time
 import signal
 from ctypes import c_short
-from ctypes import c_byte
-from ctypes import c_ubyte
+from ctypes import c_int
 import argparse
 from periphery import I2C
 
@@ -143,7 +142,7 @@ def readBME280All(addr=ic2_addr):
 	#Refine temperature
 	var1 = ((((temp_raw>>3)-(dig_T1<<1)))*(dig_T2)) >> 11
 	var2 = (((((temp_raw>>4) - (dig_T1)) * ((temp_raw>>4) - (dig_T1))) >> 12) * (dig_T3)) >> 14
-	t_fine = var1+var2
+	t_fine = c_int(var1 + var2).value
 	temperature = float(((t_fine * 5) + 128) >> 8);
 
 	# Refine pressure and adjust for temperature
