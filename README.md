@@ -57,7 +57,7 @@ $ sudo -E python3 leds.py -d led0
 ```
 
 # BMP280 Hardware SPI IO example   
-Read temperature and humidity from bmp280 with hardware SPI interface.   
+Read temperature and pressure from bmp280 with hardware SPI interface.   
 
 ### Hardware requirements
 BMP280 with spi interface.
@@ -112,7 +112,7 @@ Pressure    : 1004.88 hPa
 ```
 
 # BMP280 Software SPI IO example   
-Read temperature and humidity from bmp280 with software SPI interface.   
+Read temperature and pressure from bmp280 with software SPI interface.   
 
 ### Hardware requirements
 BMP280 with spi interface.
@@ -200,7 +200,7 @@ device=/dev/i2c-3
 
 
 # BMP180 i2c IO example   
-Read temperature and humidity from bmp180 with i2c interface.   
+Read temperature and pressure from bmp180 with i2c interface.   
 
 ### Hardware requirements
 BMP180 with i2c interface.
@@ -254,7 +254,7 @@ Pressure    : 1012.32 hPa
 ```
 
 # BMP280 i2c IO example   
-Read temperature and humidity from bmp280 with i2c interface.   
+Read temperature and pressure from bmp280 with i2c interface.   
 
 ### Hardware requirements
 BMP280 with i2c interface.
