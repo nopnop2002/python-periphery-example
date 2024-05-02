@@ -60,7 +60,8 @@ $ sudo -E python3 leds.py -d led0
 Read temperature and pressure from bmp280 with hardware SPI interface.   
 
 ### Hardware requirements
-BMP280 with spi interface.
+BMP280 with spi interface.   
+BMP280 has 4-pin specification (for i2c only) and 6-pin specification (for i2c/SPI), but when using it with SPI, you need to use a 6-pin specification module.   
 
 ### Wirering
 
@@ -115,7 +116,8 @@ Pressure    : 1004.88 hPa
 Read temperature and pressure from bmp280 with software SPI interface.   
 
 ### Hardware requirements
-BMP280 with spi interface.
+BMP280 with spi interface.   
+BMP280 has 4-pin specification (for i2c only) and 6-pin specification (for i2c/SPI), but when using it with SPI, you need to use a 6-pin specification module.   
 
 ### Wirering
 
