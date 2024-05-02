@@ -61,7 +61,7 @@ Read temperature and pressure from bmp280 with hardware SPI interface.
 
 ### Hardware requirements
 BMP280 with spi interface.   
-BMP280 has 4-pin specification (for i2c only) and 6-pin specification (for i2c/SPI), but when using it with SPI, you need to use a 6-pin specification module.   
+BMP280 breakout board has modules with 4 pin specifications (for i2c only) and 6 pin specifications (for i2c/SPI), but when using it with SPI, it is necessary to use a 6 pin specification module.   
 
 ### Wirering
 
@@ -117,7 +117,7 @@ Read temperature and pressure from bmp280 with software SPI interface.
 
 ### Hardware requirements
 BMP280 with spi interface.   
-BMP280 has 4-pin specification (for i2c only) and 6-pin specification (for i2c/SPI), but when using it with SPI, you need to use a 6-pin specification module.   
+BMP280 breakout board has modules with 4 pin specifications (for i2c only) and 6 pin specifications (for i2c/SPI), but when using it with SPI, it is necessary to use a 6 pin specification module.   
 
 ### Wirering
 
