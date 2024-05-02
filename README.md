@@ -19,7 +19,7 @@ python3 -m pip install python-periphery
 ```
 
 
-# gpio example   
+# gpio blink example   
 Blinking gpio.
 ```
 $ sudo -E python3 gpio.py --help
@@ -33,7 +33,7 @@ $ sudo -E python3 leds.py -g 1
 ```
 
 
-# leds example   
+# led blink example   
 Blinking on-board led.   
 The number of onboard LEDs depends on the device.   
 You can find the onboard LED with the command below.   
