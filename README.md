@@ -53,7 +53,7 @@ options:
   -d DEVICE, --device DEVICE
                         Onboard LED device
 
-
+# Blink /sys/class/leds/led0
 $ sudo -E python3 leds.py -d led0
 ```
 
