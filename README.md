@@ -29,7 +29,8 @@ options:
   -h, --help            show this help message and exit
   -g GPIO, --gpio GPIO  GPIO to blink
 
-$ sudo -E python3 leds.py -g 1
+# Blink GPIO01
+$ sudo -E python3 gpio.py -g 1
 ```
 
 
