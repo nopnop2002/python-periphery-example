@@ -20,7 +20,6 @@ python3 -m pip install python-periphery
 
 
 # gpio blink example   
-Blinking gpio.
 ```
 $ sudo -E python3 gpio.py --help
 usage: gpio.py [-h] [-g GPIO]
@@ -30,12 +29,34 @@ options:
   -g GPIO, --gpio GPIO  GPIO to blink
 
 # Blink GPIO01
-$ sudo -E python3 gpio.py -g 1
+$ sudo -E python3 gpio.py --gpio 1
 ```
 
+# pwm output example   
+The number of pwm GPIOs depends on the device.   
+You can find the pwm GPIO with the command below.   
+```
+$ ls /sys/class/pwm/
+pwmchip10  pwmchip11  pwmchip5  pwmchip6
+```
 
-# led blink example   
-Blinking on-board led.   
+```
+$ sudo -E python3 pwm.py --help
+usage: pwm.py [-h] [-c CHIP] [-f FREQ] [-d DUTY] [-p POLARITY]
+
+options:
+  -h, --help            show this help message and exit
+  -c CHIP, --chip CHIP  PWM chip number
+  -f FREQ, --freq FREQ  PWM frequency
+  -d DUTY, --duty DUTY  PWM duty
+  -p POLARITY, --polarity POLARITY
+                        PWM polarity
+
+# Output pwmchip10
+$ sudo -E python3 pwm --chip 10
+```
+
+# on-board led blink example   
 The number of onboard LEDs depends on the device.   
 You can find the onboard LED with the command below.   
 ```
@@ -54,7 +75,7 @@ options:
                         Onboard LED device
 
 # Blink /sys/class/leds/led0
-$ sudo -E python3 leds.py -d led0
+$ sudo -E python3 leds.py --device led0
 ```
 
 # BMP280 Hardware SPI IO example   
@@ -91,7 +112,7 @@ options:
   -p PRINT, --print PRINT
                         print debug
 
-$ sudo -E python3 bmp280-spi.py -d /dev/spidev0.0
+$ sudo -E python3 bmp280-spi.py --device /dev/spidev0.0
 device=/dev/spidev0.0
 mode=0
 speed=1000000
@@ -187,7 +208,7 @@ options:
   -h, --help            show this help message and exit
   -d DEVICE, --device DEVICE
 
-$ sudo -E python3 i2cscan.py -d /dev/i2c-3
+$ sudo -E python3 i2cscan.py --device /dev/i2c-3
 device=/dev/i2c-3
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:          -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -232,7 +253,7 @@ options:
   -a ADDR, --addr ADDR  i2c address
 
 
-$ sudo -E python3 bmp180-i2c.py -d /dev/i2c-3
+$ sudo -E python3 bmp180-i2c.py --device /dev/i2c-3
 device=/dev/i2c-3
 addr=0x77
 Chip ID          : 85
@@ -290,7 +311,7 @@ options:
   -p PRINT, --print PRINT
                         print debug
 
-$ sudo -E python3 bmp280-i2c.py -d /dev/i2c-3
+$ sudo -E python3 bmp280-i2c.py --device /dev/i2c-3
 device=/dev/i2c-3
 addr=0x76
 chip_id = 0x58 BMP280
@@ -340,7 +361,7 @@ options:
   -p PRINT, --print PRINT
                         print debug
 
-$ sudo -E python3 uart.py -d /dev/ttyS3 -b 115200
+$ sudo -E python3 uart.py --device /dev/ttyS3 --baudrate 115200
 device=/dev/ttyS3
 baudrate=115200
 read 5 bytes: [hello]

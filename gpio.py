@@ -6,19 +6,19 @@ import signal
 import sys
 import argparse
 
-running = True
-
 def handler(signal, frame):
 	global running
 	print('handler')
 	running = False
 
 if __name__=="__main__":
+	signal.signal(signal.SIGINT, handler)
+	running = True
+	
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-g', '--gpio', type=int, help='GPIO to blink', default=1)
 	args = parser.parse_args()
 
-	signal.signal(signal.SIGINT, handler)
 	gpio_out = GPIO(args.gpio, "out")
 
 	while running:
