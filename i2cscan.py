@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 #-*- encoding: utf-8 -*-
-
 from periphery import I2C
 import argparse
 
@@ -12,7 +11,14 @@ def scan(address):
 	except: # exception if read_byte fails
 		print('-- ', end="")
 
-def main():
+if __name__=="__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-d', '--device', default='/dev/i2c-0')
+	args = parser.parse_args()
+
+	print("device={}".format(args.device))
+	i2c = I2C(args.device)
+
 	print('   ', end="")
 	for index in range(16):
 		print('  {:x}'.format(index), end="")
@@ -31,12 +37,3 @@ def main():
 	for device in range(0x70,0x78):
 		scan(device)
 	print()
-
-if __name__=="__main__":
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-d', '--device', default='/dev/i2c-0')
-	args = parser.parse_args()
-
-	print("device={}".format(args.device))
-	i2c = I2C(args.device)
-	main()

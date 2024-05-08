@@ -4,12 +4,10 @@ import signal
 import argparse
 from periphery import Serial
 
-serial = None
-
 def handler(signal, frame):
-    global running
-    print('handler')
-    running = False
+	global running
+	print('handler')
+	running = False
 
 if __name__=="__main__":
 	signal.signal(signal.SIGINT, handler)

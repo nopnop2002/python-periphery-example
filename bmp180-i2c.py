@@ -7,13 +7,10 @@ from ctypes import c_short
 import argparse
 from periphery import I2C
 
-i2c = None
-ic2_addr = 0
-
 def handler(signal, frame):
-    global running
-    print('handler')
-    running = False
+	global running
+	print('handler')
+	running = False
 
 def getShort(data, index):
 	# return two bytes from data as a signed 16-bit value
@@ -23,16 +20,16 @@ def getUshort(data, index):
 	# return two bytes from data as an unsigned 16-bit value
 	return (data[index] << 8) + data[index + 1]
 
-def readBmp180Id(addr=ic2_addr):
+def readBmp180Id(addr):
 	# Chip ID Register Address
 	REG_ID		 = 0xD0
 	msgs = [I2C.Message([REG_ID]), I2C.Message([0,0], read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	chip_id = msgs[1].data[0]
 	chip_version = msgs[1].data[1]
 	return chip_id, chip_version
 
-def readBmp180(addr=ic2_addr):
+def readBmp180(addr):
 	# Register Addresses
 	REG_CALIB  = 0xAA
 	REG_MEAS	 = 0xF4
@@ -48,7 +45,7 @@ def readBmp180(addr=ic2_addr):
 	# Read calibration data from EEPROM
 	cal = [0 for i in range(22)]
 	msgs = [I2C.Message([REG_CALIB]), I2C.Message(cal, read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	cal = []
 	for x in range(22):
 		data = msgs[1].data[x]
@@ -69,20 +66,20 @@ def readBmp180(addr=ic2_addr):
 
 	# Read temperature
 	msgs = [I2C.Message([REG_MEAS,CRV_TEMP]), I2C.Message([0], read=False)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	time.sleep(0.005)
 	msgs = [I2C.Message([REG_MSB]), I2C.Message([0,0], read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	msb = msgs[1].data[0]
 	lsb = msgs[1].data[1]
 	UT = (msb << 8) + lsb
 
 	# Read pressure
 	msgs = [I2C.Message([REG_MEAS,CRV_PRES + (OVERSAMPLE << 6)]), I2C.Message([0], read=False)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	time.sleep(0.04)
 	msgs = [I2C.Message([REG_MSB]), I2C.Message([0,0,0], read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	msb = msgs[1].data[0]
 	lsb = msgs[1].data[1]
 	xsb = msgs[1].data[2]
@@ -130,9 +127,9 @@ if __name__=="__main__":
 	print("device={}".format(args.device))
 	print("addr=0x{:x}".format(args.addr))
 	i2c = I2C(args.device)
-	ic2_addr = args.addr
+	i2c_addr = args.addr
 
-	chip_id, chip_version = readBmp180Id()
+	chip_id, chip_version = readBmp180Id(i2c_addr)
 	print("Chip ID		 : {0}".format(chip_id))
 	print("Version		 : {0}".format(chip_version))
 	print
@@ -140,7 +137,7 @@ if __name__=="__main__":
 	while running:
 		print("-----------------------");
 		print("Chip ID     : 0x{:x}".format(chip_id))
-		(temperature,pressure)=readBmp180()
+		(temperature,pressure)=readBmp180(i2c_addr)
 		print("Temperature : {0} C".format(temperature))
 		print("Pressure    : {0} hPa".format(pressure))
 		time.sleep(2)

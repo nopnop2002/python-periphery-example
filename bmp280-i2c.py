@@ -8,14 +8,10 @@ from ctypes import c_int
 import argparse
 from periphery import I2C
 
-i2c = None
-ic2_addr = 0
-DEBUG = 0
-
 def handler(signal, frame):
-    global running
-    print('handler')
-    running = False
+	global running
+	print('handler')
+	running = False
 
 def getShort(data, index):
 	# return two bytes from data as a signed 16-bit value
@@ -37,16 +33,16 @@ def getUChar(data,index):
 	result = data[index] & 0xFF
 	return result
 
-def readID(addr=ic2_addr):
+def readID(addr):
 	# Chip ID Register Address
 	REG_ID = 0xD0
 	msgs = [I2C.Message([REG_ID]), I2C.Message([0,0], read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	chip_id = msgs[1].data[0]
 	chip_version = msgs[1].data[1]
 	return chip_id, chip_version
 
-def readBME280All(addr=ic2_addr):
+def readBME280All(addr):
 	# Register Addresses
 	REG_DATA = 0xF7
 	REG_CONTROL = 0xF4
@@ -64,29 +60,29 @@ def readBME280All(addr=ic2_addr):
 	# Oversample setting for humidity register - page 26
 	OVERSAMPLE_HUM = 2
 	msgs = [I2C.Message([REG_CONTROL_HUM, OVERSAMPLE_HUM]), I2C.Message([0], read=False)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 
 	control = OVERSAMPLE_TEMP<<5 | OVERSAMPLE_PRES<<2 | MODE
 	msgs = [I2C.Message([REG_CONTROL, control]), I2C.Message([0], read=False)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 
 	# Read blocks of calibration data from EEPROM
 	# See Page 22 data sheet
 	cal1 = [0 for i in range(24)]
 	msgs = [I2C.Message([0x88]), I2C.Message(cal1, read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	cal1 = []
 	for x in range(24):
 		cal1.append(msgs[1].data[x])
 
 	cal2 = []
 	msgs = [I2C.Message([0xA1]), I2C.Message([0], read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	cal2.append(msgs[1].data[0])
 
 	cal3 = [0 for i in range(7)]
 	msgs = [I2C.Message([0xE1]), I2C.Message(cal3, read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	cal3 = []
 	for x in range(7):
 		cal3.append(msgs[1].data[x])
@@ -131,7 +127,7 @@ def readBME280All(addr=ic2_addr):
 	# Read temperature/pressure/humidity
 	data = [0 for i in range(8)]
 	msgs = [I2C.Message([REG_DATA]), I2C.Message(data, read=True)]
-	i2c.transfer(ic2_addr, msgs)
+	i2c.transfer(addr, msgs)
 	data = []
 	for x in range(8):
 		data.append(msgs[1].data[x])
@@ -186,10 +182,10 @@ if __name__=="__main__":
 	print("device={}".format(args.device))
 	print("addr=0x{:x}".format(args.addr))
 	i2c = I2C(args.device)
-	ic2_addr = args.addr
+	i2c_addr = args.addr
 	DEBUG = args.print
 
-	chip_id, chip_version = readID()
+	chip_id, chip_version = readID(i2c_addr)
 	print("chip_id = 0x{:x} ".format(chip_id), end="")
 	if (chip_id == 0x58):
 		print("BMP280")
@@ -206,7 +202,7 @@ if __name__=="__main__":
 		if (chip_id == 0x60):
 			print("Version    :{}".format(chip_version))
 
-		temperature,pressure,humidity = readBME280All()
+		temperature,pressure,humidity = readBME280All(i2c_addr)
 
 		print("Temperature : {:.2f} C".format(temperature))
 		print("Pressure    : {:.2f} hPa".format(pressure))

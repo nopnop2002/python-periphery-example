@@ -6,8 +6,6 @@ import signal
 import sys
 import argparse
 
-running = True
-
 def handler(signal, frame):
 	global running
 	print('handler')
@@ -15,6 +13,8 @@ def handler(signal, frame):
 
 if __name__=="__main__":
 	parser = argparse.ArgumentParser()
+	running = True
+
 	parser.add_argument('-d', '--device', help='Onboard LED device', default="leds")
 	args = parser.parse_args()
 	signal.signal(signal.SIGINT, handler)

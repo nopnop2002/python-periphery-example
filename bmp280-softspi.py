@@ -8,12 +8,6 @@ from ctypes import c_short
 from ctypes import c_int
 from periphery import GPIO
 
-gpio_mosi = None
-gpio_miso = None
-gpio_sclk = None
-gpio_cs = None
-DEBUG = 0
-
 def handler(signal, frame):
 	global running
 	print('handler')

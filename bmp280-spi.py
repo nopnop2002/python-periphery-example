@@ -8,13 +8,10 @@ from ctypes import c_short
 from ctypes import c_int
 from periphery import SPI
 
-spi = None
-DEBUG = 0
-
 def handler(signal, frame):
-    global running
-    print('handler')
-    running = False
+	global running
+	print('handler')
+	running = False
 
 def readID():
 	out = [0xD0, 0x00, 0x00]
