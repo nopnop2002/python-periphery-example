@@ -1,4 +1,5 @@
 # hdd44780 example   
+I took [this](https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-using-python/) code as a reference and ported it to the python-periphery.   
 
 # Hardware requirements
 hdd44780 LCD.   
