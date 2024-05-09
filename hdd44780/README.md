@@ -20,10 +20,10 @@ optional arguments:
   --clear CLEAR    clear all text
 
 ## for 1602 LCD
-$ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 18 --text1 "Hello!" --text2 "World!"
+$ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 18 --text1 'Hello!!' --text2 'World!!'
 
 ## for 1604 LCD
-$ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 18 --text1 "Hello!" --text2 "World!" --text3 "Good!" --text4 "Bye!"
+$ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 18 --text1 'Hello!!' --text2 'World!!' --text3 'Good!!' --text4 'Bye!!'
 
 ## for clear all text
 $ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 18 --clear
