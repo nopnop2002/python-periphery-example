@@ -43,3 +43,4 @@ $ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 1
 
 ## for clear all text
 $ sudo -E python3 hdd44780.py --rs 23 --enable 24 --d4 14 --d5 15 --d6 17 --d7 18
+```
