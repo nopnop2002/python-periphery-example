@@ -1,5 +1,16 @@
 # hdd44780 example   
 
+# Hardware requirements
+hdd44780 LCD.   
+Usually called 1602LCD/1604LCD.   
+
+# Wirering for 5V module
+![GPIO_LCD-BASIC_5V](https://github.com/nopnop2002/python-periphery-example/assets/6020549/525468ae-89e9-445c-ba44-644ffe14958a)
+
+# Wirering for 3V3 module
+![GPIO_LCD-BASIC_3V3](https://github.com/nopnop2002/python-periphery-example/assets/6020549/379087b1-9916-46ad-a026-340d9dc16205)
+
+
 ```
 $ sudo -E python3 hdd44780.py --help
 usage: hdd44780.py [-h] [--rs RS] [--enable ENABLE] [--d4 D4] [--d5 D5] [--d6 D6] [--d7 D7] [--text1 TEXT1] [--text2 TEXT2]
