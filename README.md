@@ -2,6 +2,7 @@
 python-periphery example code.   
 python-periphery is a python library that can handle GPIO, onboard LED, SPI, i2c and UART.   
 It is a very versatile library and highly portable.   
+The downside is that there is less example python code.   
 This library is available for these Linux boards.   
 
 - LuckFox Pico board using Rockchip RV1103/RV1106 chips.   
@@ -14,7 +15,6 @@ This library is available for these Linux boards.
 - Milk-V Dio 256M board using Microsemi Corporation SG2002 chips.   
 ![Milk-V_Duo_256M](https://github.com/nopnop2002/python-periphery-example/assets/6020549/94e16c73-b2b5-4036-8965-d406aded7092)
 
-The downside is that there is less example python code.   
 I used it to check the operation of these Linux boards.
 
 # Installation
