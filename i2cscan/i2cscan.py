@@ -13,7 +13,7 @@ def scan(address):
 
 if __name__=="__main__":
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-d', '--device', default='/dev/i2c-0')
+	parser.add_argument('-d', '--device', default='/dev/i2c-1')
 	args = parser.parse_args()
 
 	print("device={}".format(args.device))

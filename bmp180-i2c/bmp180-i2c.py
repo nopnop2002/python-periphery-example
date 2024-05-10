@@ -119,7 +119,7 @@ if __name__=="__main__":
 	running = True
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-d', '--device', help="device file name", default='/dev/i2c-0')
+	parser.add_argument('-d', '--device', help="device file name", default='/dev/i2c-1')
 	parser.add_argument('-a', '--addr', type=lambda x: int(x, 16), help="i2c address", default=0x77)
 	args = parser.parse_args()
 
