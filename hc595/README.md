@@ -1,7 +1,7 @@
 # hc595 (ShiftRegister) example   
 
 # Hardware requirements
-hc595.   
+hc595   
 Depending on the manufacturer, the model number may be SN54HC595/SL74HC595/SN74HC595.   
 
 # Wirering

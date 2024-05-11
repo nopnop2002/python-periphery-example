@@ -1,13 +1,11 @@
-# mcp23019 example   
+# pcf8574 example   
 
 # Hardware requirements
-mcp23017   
-Maximum output current sunk by any output pin is 25mA.   
-Maximum output current sourced by any output pin is 25mA.   
+pcf8574x   
+Total package sink capability of 80 mA.   
 
 # Wirering
-![MCP23017-LED](https://github.com/nopnop2002/python-periphery-example/assets/6020549/dca4f244-70a4-4a6a-ac4f-6f2c1de329f7)
-
+![PCF8574-LED](https://github.com/nopnop2002/python-periphery-example/assets/6020549/6df6f102-461b-442a-9055-7ed9baec833c)
 
 ```
 $ sudo -E python3 main.py --help
