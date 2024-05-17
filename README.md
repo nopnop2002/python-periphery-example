@@ -2,6 +2,7 @@
 python-periphery example code.   
 python-periphery is a python library that can handle GPIO, onboard LED, SPI, i2c and UART.   
 It is a very versatile library and highly portable.   
+This library can also be used in the buildroot environment.   
 The downside is that there is less example python code.   
 This library is available for these Linux boards.   
 
@@ -17,7 +18,7 @@ This library is available for these Linux boards.
 
 I used it to check the operation of these Linux boards.
 
-# Installation
+# Installation using apt
 
 ```Shell
 sudo apt update
@@ -26,4 +27,8 @@ git clone https://github.com/vsergeev/python-periphery.git
 cd python-periphery/
 python3 -m pip install python-periphery
 ```
+
+# Installing the buildroot environment   
+Rebuild the kernel with python-peripheri enabled.   
+![python-periphery](https://github.com/nopnop2002/python-periphery-example/assets/6020549/7f26f096-6d5e-4618-a108-e5b174f9fc52)
 
