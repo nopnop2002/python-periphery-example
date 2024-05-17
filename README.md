@@ -29,6 +29,6 @@ python3 -m pip install python-periphery
 ```
 
 # Installing the buildroot environment   
-Rebuild the kernel with python-peripheri enabled.   
+Rebuild the kernel with python-periphery enabled.   
 ![python-periphery](https://github.com/nopnop2002/python-periphery-example/assets/6020549/7f26f096-6d5e-4618-a108-e5b174f9fc52)
 
