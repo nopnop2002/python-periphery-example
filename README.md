@@ -18,7 +18,7 @@ This library is available for these Linux boards.
 
 I used it to check the operation of these Linux boards.
 
-# Installation using apt
+# Installation using pip
 
 ```Shell
 sudo apt update
