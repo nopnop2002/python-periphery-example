@@ -6,18 +6,29 @@ https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-using-python/
 """
 #!/usr/bin/python
 #-*- encoding: utf-8 -*-
+import os
+import sys
 import time
 from periphery import GPIO
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from hc595.hc595 import hc595
 
 class hdd44780:
-	def __init__(self, rs, enable, d4, d5, d6, d7):	
-		# Define GPIO to LCD mapping
-		self.GPIO_RS = GPIO(rs, "out")
-		self.GPIO_EN = GPIO(enable, "out")
-		self.GPIO_D4 = GPIO(d4, "out")
-		self.GPIO_D5 = GPIO(d5, "out")
-		self.GPIO_D6 = GPIO(d6, "out")
-		self.GPIO_D7 = GPIO(d7, "out")
+	def __init__(self, data, latch, shift):	
+		self.data_pin = data
+		self.latch_pin = latch
+		self.shift_pin = shift
+		
+		self.register = hc595(self.data_pin, self.latch_pin, self.shift_pin) # data, latch, shift
+		self.register.setOutputs([0,0,0,0,0,0,0,0])
+		self.register.latch()
+
+		self.LCD_RS = 1 # pin 1 on the 74HC595
+		self.LCD_EN = 2 # pin 2 on the 74HC595
+		self.LCD_D4 = 4 # pin 4 on the 74HC595
+		self.LCD_D5 = 5 # pin 5 on the 74HC595
+		self.LCD_D6 = 6 # pin 6 on the 74HC595
+		self.LCD_D7 = 7 # pin 7 on the 74HC595
 
 		# Define some device constants
 		self.LCD_WIDTH = 16 # Maximum characters per line
@@ -42,9 +53,9 @@ class hdd44780:
 	def toggle_enable(self):
 		# Toggle enable
 		time.sleep(self.ENABLE_DELAY)
-		self.GPIO_EN.write(True)
+		self.register.Output(self.LCD_EN, True)
 		time.sleep(self.ENABLE_PULSE)
-		self.GPIO_EN.write(False)
+		self.register.Output(self.LCD_EN, False)
 		time.sleep(self.ENABLE_DELAY)
 		 
 	def lcd_byte(self, byte, mode):
@@ -52,38 +63,38 @@ class hdd44780:
 		# byte = data
 		# mode = True for character / False for command
  
-		self.GPIO_RS.write(mode) # RS
+		self.register.Output(self.LCD_RS, mode)
  
 		# High byte
-		self.GPIO_D4.write(False)
-		self.GPIO_D5.write(False)
-		self.GPIO_D6.write(False)
-		self.GPIO_D7.write(False)
+		self.register.Output(self.LCD_D4, False)
+		self.register.Output(self.LCD_D5, False)
+		self.register.Output(self.LCD_D6, False)
+		self.register.Output(self.LCD_D7, False)
 		if byte&0x10==0x10:
-			self.GPIO_D4.write(True)
+			self.register.Output(self.LCD_D4, True)
 		if byte&0x20==0x20:
-			self.GPIO_D5.write(True)
+			self.register.Output(self.LCD_D5, True)
 		if byte&0x40==0x40:
-			self.GPIO_D6.write(True)
+			self.register.Output(self.LCD_D6, True)
 		if byte&0x80==0x80:
-			self.GPIO_D7.write(True)
+			self.register.Output(self.LCD_D7, True)
  
 		# Toggle 'Enable' pin
 		self.toggle_enable()
 
 		# Low byte
-		self.GPIO_D4.write(False)
-		self.GPIO_D5.write(False)
-		self.GPIO_D6.write(False)
-		self.GPIO_D7.write(False)
+		self.register.Output(self.LCD_D4, False)
+		self.register.Output(self.LCD_D5, False)
+		self.register.Output(self.LCD_D6, False)
+		self.register.Output(self.LCD_D7, False)
 		if byte&0x01==0x01:
-			self.GPIO_D4.write(True)
+			self.register.Output(self.LCD_D4, True)
 		if byte&0x02==0x02:
-			self.GPIO_D5.write(True)
+			self.register.Output(self.LCD_D5, True)
 		if byte&0x04==0x04:
-			self.GPIO_D6.write(True)
+			self.register.Output(self.LCD_D6, True)
 		if byte&0x08==0x08:
-			self.GPIO_D7.write(True)
+			self.register.Output(self.LCD_D7, True)
 
 		# Toggle 'Enable' pin
 		self.toggle_enable()
