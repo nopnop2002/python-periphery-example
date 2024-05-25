@@ -5,7 +5,7 @@ I took [this](https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-
 - hdd44780 LCD.   
  Usually called 1602LCD/1604LCD.   
 
-- pcf8574
+- pcf8574   
  Operating supply voltage is 2.5 V to 6V.   
  The i2c TTL level needs to match the host.   
 
