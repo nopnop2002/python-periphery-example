@@ -5,7 +5,7 @@ I took [this](https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-
 - hdd44780 LCD.   
  Usually called 1602LCD/1604LCD.   
 
-- hc595   
+- 74hc595   
  Depending on the manufacturer, the model number may be SN54HC595/SL74HC595/SN74HC595.   
  The power supply voltage range is 2.0V to 6.0V.   
 
