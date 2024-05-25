@@ -10,7 +10,7 @@ class pcf8574:
 		try:
 			msgs = [I2C.Message([0x00], read=False)]
 			self.i2c.transfer(self.i2c_addr, msgs)
-		except:
+		except Exception as ex:
 			print(ex)
 			return
 
