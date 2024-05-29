@@ -1,8 +1,9 @@
 # BMP180 i2c IO example   
 Read temperature and pressure from bmp180 with i2c interface.   
+The BMP180 is the function compatible successor of the BMP085.   
 
 ### Hardware requirements
-BMP180 with i2c interface.
+BMP085/BMP180 with i2c interface.
 
 ### Wirering
 
