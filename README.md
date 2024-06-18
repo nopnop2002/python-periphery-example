@@ -18,7 +18,7 @@ This library is available for these Linux boards.
 
 I used it to check the operation of these Linux boards.
 
-# Installation using pip
+# Installing on Debian/Ubuntu environment   
 
 ```Shell
 sudo apt update
@@ -26,7 +26,7 @@ sudo apt install git python3-pip python3-setuptools
 python3 -m pip install python-periphery
 ```
 
-# Installing the buildroot environment   
+# Installing on buildroot environment   
 Rebuild the kernel with python-periphery enabled.   
 ![python-periphery](https://github.com/nopnop2002/python-periphery-example/assets/6020549/7f26f096-6d5e-4618-a108-e5b174f9fc52)
 
