@@ -24,6 +24,7 @@ I used it to check the operation of these Linux boards.
 sudo apt update
 sudo apt install git python3-pip python3-setuptools
 python3 -m pip install python-periphery
+git clone https://github.com/nopnop2002/python-periphery-example
 ```
 
 # Installing on buildroot environment   
