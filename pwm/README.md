@@ -33,6 +33,8 @@ usage: pwm.py [-h] [-c CHIP] [-f FREQ] [-d DUTY] [-p POLARITY]
 options:
   -h, --help            show this help message and exit
   -c CHIP, --chip CHIP  PWM chip number
+  -n CHANNELL, --channell CHANNELL
+                        PWM channell number
   -f FREQ, --freq FREQ  PWM frequency
   -d DUTY, --duty DUTY  PWM duty
   -p POLARITY, --polarity POLARITY
