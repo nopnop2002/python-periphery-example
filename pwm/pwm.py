@@ -16,6 +16,7 @@ if __name__=="__main__":
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-c', '--chip', type=int, help='PWM chip number', default=10)
+	parser.add_argument('-n', '--channell', type=int, help='PWM channell number', default=0)
 	parser.add_argument('-f', '--freq', type=int, help='PWM frequency', default=1000)
 	parser.add_argument('-d', '--duty', type=int, help='PWM duty', default=0)
 	parser.add_argument('-p', '--polarity', help='PWM polarity', default="normal")
@@ -23,10 +24,11 @@ if __name__=="__main__":
 
 	# Open PWM chip
 	print("chip={}".format(args.chip))
+	print("channell={}".format(args.channell))
 	print("freq={}".format(args.freq))
 	print("duty={}".format(args.duty))
 	print("polarity={}".format(args.polarity))
-	pwm = PWM(args.chip, 0)  
+	pwm = PWM(args.chip, args.channell)  
 
 	pwm.frequency = args.freq
 	pwm.duty_cycle = args.duty
