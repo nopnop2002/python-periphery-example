@@ -4,7 +4,7 @@
 pcf8574x   
 Total package sink capability of 80 mA.   
 
-# Wirering
+# Wiring
 ![PCF8574-LED](https://github.com/nopnop2002/python-periphery-example/assets/6020549/56cd3607-1de1-4135-8e6d-dfa64f9fffc4)
 
 ```

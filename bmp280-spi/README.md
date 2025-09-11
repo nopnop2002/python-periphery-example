@@ -5,7 +5,7 @@ Read temperature and pressure from bmp280 with hardware SPI interface.
 BMP280 with spi interface.   
 BMP280 breakout module has modules with 4 pin specifications (for i2c only) and 6 pin specifications (for i2c/SPI), but when using it with SPI, it is necessary to use a 6 pin specification module.   
 
-### Wirering
+### Wiring
 
 |BMP280||GPIO||
 |:-:|:-:|:-:|:-:|

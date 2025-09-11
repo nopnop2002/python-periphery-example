@@ -5,10 +5,10 @@ I took [this](https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-
 hdd44780 LCD.   
 Usually called 1602LCD/1604LCD.   
 
-# Wirering for 5V module
+# Wiring for 5V module
 ![GPIO_LCD-BASIC_5V](https://github.com/nopnop2002/python-periphery-example/assets/6020549/525468ae-89e9-445c-ba44-644ffe14958a)
 
-# Wirering for 3V3 module
+# Wiring for 3V3 module
 ![GPIO_LCD-BASIC_3V3](https://github.com/nopnop2002/python-periphery-example/assets/6020549/379087b1-9916-46ad-a026-340d9dc16205)
 
 

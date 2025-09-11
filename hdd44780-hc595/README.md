@@ -9,10 +9,10 @@ I took [this](https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-
  Depending on the manufacturer, the model number may be SN54HC595/SL74HC595/SN74HC595.   
  The power supply voltage range is 2.0V to 6.0V.   
 
-# Wirering for 5V module
+# Wiring for 5V module
 ![GPIO_LCD-HC595_5V](https://github.com/nopnop2002/python-periphery-example/assets/6020549/a0396c7b-614c-488e-b310-c122cc5c4c5a)
 
-# Wirering for 3V3 module
+# Wiring for 3V3 module
 ![GPIO_LCD-HC595_3V3](https://github.com/nopnop2002/python-periphery-example/assets/6020549/c269fcb1-e602-49fd-8bbc-a013a28a1418)
 
 ```

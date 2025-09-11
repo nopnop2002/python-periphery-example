@@ -4,7 +4,7 @@
 74hc595   
 Depending on the manufacturer, the model number may be SN54HC595/SL74HC595/SN74HC595.   
 
-# Wirering
+# Wiring
 ![74HC595-LED](https://github.com/nopnop2002/python-periphery-example/assets/6020549/24723718-569d-4574-a460-051f6f747afd)
 
 ```

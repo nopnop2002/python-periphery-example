@@ -3,7 +3,7 @@
 ### Hardware requirements
 USB-TTL converter like CH340.
 
-### Wirering
+### Wiring
 
 |CH340||GPIO||
 |:-:|:-:|:-:|:-:|

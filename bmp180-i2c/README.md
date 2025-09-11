@@ -5,7 +5,7 @@ The BMP180 is the function compatible successor of the BMP085.
 ### Hardware requirements
 BMP085/BMP180 with i2c interface.
 
-### Wirering
+### Wiring
 
 |BMP180||GPIO||
 |:-:|:-:|:-:|:-:|

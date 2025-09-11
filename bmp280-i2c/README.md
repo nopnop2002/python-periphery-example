@@ -4,7 +4,7 @@ Read temperature and pressure from bmp280 with i2c interface.
 ### Hardware requirements
 BMP280 with i2c interface.
 
-### Wirering
+### Wiring
 
 |BMP280||GPIO||
 |:-:|:-:|:-:|:-:|

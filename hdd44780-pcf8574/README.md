@@ -9,10 +9,10 @@ I took [this](https://www.raspberrypi-spy.co.uk/2012/07/16x2-lcd-module-control-
  Operating supply voltage is 2.5 V to 6V.   
  The i2c TTL level needs to match the host.   
 
-# Wirering for 5V module
+# Wiring for 5V module
 ![GPIO_LCD+PCF8574-5V](https://github.com/nopnop2002/python-periphery-example/assets/6020549/e627ab31-9af1-4f42-87da-a0dfec66f8c4)
 
-# Wirering for 3V3 module
+# Wiring for 3V3 module
 ![GPIO_LCD+PCF8574-3V3](https://github.com/nopnop2002/python-periphery-example/assets/6020549/6d7fcdfe-d48c-4208-a92b-1e23a864d136)
 
 
